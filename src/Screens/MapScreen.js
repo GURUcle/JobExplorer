@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, ActivityIndicator } from 'react-native';
+import { View, Text, AsyncStorage, ActivityIndicator, TextInput } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'react-native-elements';
@@ -9,7 +9,7 @@ class MapScreen extends Component {
   static navigationOptions = {
     title:'Map',
     tabBarIcon: ({ tintColor }) => {
-      return <Icon name='my-location' size={30} color={tintColor}/>;
+      return <Icon name='my-location' size={20} color={tintColor}/>;
     }
   }
 
@@ -20,7 +20,8 @@ class MapScreen extends Component {
       latitude: 37,
       longitudeDelta: 0.04,
       latitudeDelta: 0.09
-    }
+    },
+    query: ''
   };
 
   componentDidMount() {
@@ -35,7 +36,7 @@ class MapScreen extends Component {
   onButtonPress = () => {
     const { navigation } = this.props;
     // Call back function to navigate user after finding jobs
-    this.props.fetchJobs(this.state.region, () => {
+    this.props.fetchJobs(this.state.region, this.state.query, () => {
       navigation.navigate('deck');
     });
   }
@@ -57,6 +58,17 @@ class MapScreen extends Component {
           onRegionChangeComplete={this.onRegionChangeComplete}
         />
 
+        <View style={styles.textBoxContainer}>
+          <Text style={styles.textStyle}>Enter Job Keyword:</Text>
+          <TextInput
+            value={this.state.text}
+            style={styles.textBoxStyle}
+            onChangeText={(text) => this.setState({ query: text })}
+            maxLength={40}
+            underlineColorAndroid='rgba(0,0,0,0)'
+          />
+        </View>
+
         <View style={styles.buttonContainer}>
           <Button
             title="Search this area"
@@ -64,6 +76,7 @@ class MapScreen extends Component {
             backgroundColor='#009688'
             icon={{ name: 'search' }}
             onPress={this.onButtonPress}
+            buttonStyle={{ borderRadius: 5 }}
           />
         </View>
       </View>
@@ -77,6 +90,26 @@ const styles = {
     bottom: 20,
     left: 0,
     right: 0,
+  },
+  textBoxContainer: {
+    position: 'absolute',
+    top: 20,
+    left: 0,
+    right: 0,
+    paddingRight: 10,
+    paddingLeft: 10,
+  },
+  textBoxStyle: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    paddingLeft: 5,
+    color: 'gray'
+  },
+  textStyle: {
+    color: 'gray'
   }
 };
 

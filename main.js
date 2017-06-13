@@ -51,7 +51,7 @@ class App extends React.Component {
           tabBarPosition: 'bottom',
           tabBarOptions: {
             showIcon: true,
-            iconStyle: { width: 30, height: 30 },
+            iconStyle: { width: 20, height: 20 },
             labelStyle: { fontSize: 11 },
             activeTintColor: '#fff',
             style: { backgroundColor: '#009688' }

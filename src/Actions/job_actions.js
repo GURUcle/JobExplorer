@@ -15,20 +15,20 @@ const JOB_QUERY_PARAMS = {
   v: '2',
   latlong: 1,
   radius: 10,
-  q: 'javascript'
 };
 
 // Helper function
-const buildJobsUrl = (zip) => {
-  const query = qs.stringify({ ...JOB_QUERY_PARAMS, l: zip });
+const buildJobsUrl = (zip, q) => {
+  const query = qs.stringify({ ...JOB_QUERY_PARAMS, q, l: zip });
   return `${JOB_ROOT_URL}${query}`;
 };
 
-export const fetchJobs = (region, callback) => async (dispatch) => {
+export const fetchJobs = (region, query, callback) => async (dispatch) => {
   // convert lat and long to zip code
   try {
     let zip = await reverseGeocode(region);
-    const url = buildJobsUrl(zip);
+    const url = buildJobsUrl(zip, query);
+    console.log('url', url);
 
     // Make a request to api
     let { data } = await axios.get(url);
