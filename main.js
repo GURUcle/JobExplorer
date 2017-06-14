@@ -55,7 +55,8 @@ class App extends React.Component {
             labelStyle: { fontSize: 11 },
             activeTintColor: '#fff',
             style: { backgroundColor: '#009688' }
-          }
+          },
+          lazy: true,
         })
       }
     }, {

@@ -35,9 +35,10 @@ class MapScreen extends Component {
 
   onButtonPress = () => {
     const { navigation } = this.props;
+    const { query } = this.state;
     // Call back function to navigate user after finding jobs
-    this.props.fetchJobs(this.state.region, this.state.query, () => {
-      navigation.navigate('deck');
+    this.props.fetchJobs(this.state.region, query, () => {
+      navigation.navigate('deck', { query });
     });
   }
 

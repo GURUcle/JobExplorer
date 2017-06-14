@@ -7,12 +7,12 @@ import * as actions from '../Actions';
 import Swipe from '../Components/Swipe';
 
 class DeckScreen extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation, screenProps }) => ({
     title:'Jobs',
     tabBarIcon: ({ tintColor }) => {
       return <Icon name='description' size={20} color={tintColor}/>;
     }
-  }
+  });
 
   renderCard(job) {
     const { jobtitle, company, formattedRelativeTime,
@@ -66,8 +66,14 @@ class DeckScreen extends Component {
   }
 
   render() {
+    const { navigate, state } = this.props.navigation;
+    const { query } = state.params;
+    console.log('state:', state);
     return (
       <View style={{ marginTop: 24 }}>
+        <View style={{ paddingLeft: 10, paddingRight: 10}}>
+          <Text style={styles.queryTitleStyle}>{`Job Results For ${query}:`}</Text>
+        </View>
         <Swipe
           data={this.props.jobs}
           renderCard={this.renderCard}
@@ -88,6 +94,10 @@ const styles = {
   },
   containerStyle: {
     height: 600,
+  },
+  queryTitleStyle: {
+    fontSize: 16,
+    color: 'black',
   }
 };
 
