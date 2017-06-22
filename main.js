@@ -5,6 +5,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 
 import registerForNotifications from './src/Services/push_notifications';
+import registerForLocation from './src/Services/register_location';
 
 import Store from './src/Store';
 import AuthScreen from './src/Screens/AuthScreen';
@@ -17,6 +18,7 @@ import SettingsScreen from './src/Screens/SettingsScreen';
 class App extends React.Component {
   componentDidMount() {
     registerForNotifications();
+    registerForLocation();
     // Call back that will be executed anytime a user recieves a push notif
     // " notification " contains all info about the notif
     Notifications.addListener((notification) => {

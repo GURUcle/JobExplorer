@@ -15,6 +15,7 @@ const JOB_QUERY_PARAMS = {
   v: '2',
   latlong: 1,
   radius: 10,
+  co: 'ca',
 };
 
 // Helper function
@@ -26,7 +27,8 @@ const buildJobsUrl = (zip, q) => {
 export const fetchJobs = (region, query, callback) => async (dispatch) => {
   // convert lat and long to zip code
   try {
-    let zip = await reverseGeocode(region);
+    //let zip = await reverseGeocode(region);
+    let zip = 'Toronto, ON';
     const url = buildJobsUrl(zip, query);
     console.log('url', url);
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage, ActivityIndicator, TextInput } from 'react-native';
-import { MapView } from 'expo';
+import { MapView, Location } from 'expo';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'react-native-elements';
 import * as actions from '../Actions';
@@ -21,12 +21,25 @@ class MapScreen extends Component {
       longitudeDelta: 0.04,
       latitudeDelta: 0.09
     },
-    query: ''
+    query: '',
   };
 
   componentDidMount() {
     //AsyncStorage.removeItem('fb_token');
+    this.props.fetchUserLocation();
     this.setState({ mapLoaded: true });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { currentLocation: { coords } } = nextProps;
+    this.setState({
+      region: {
+        longitude: coords.longitude,
+        latitude: coords.latitude,
+        longitudeDelta: 0.04,
+        latitudeDelta: 0.09
+      }
+    });
   }
 
   onRegionChangeComplete = (region) => {
@@ -114,4 +127,8 @@ const styles = {
   }
 };
 
-export default connect(null, actions)(MapScreen);
+const mapStateToProps = (state) => {
+  return { currentLocation: state.currentLocation };
+};
+
+export default connect(mapStateToProps, actions)(MapScreen);

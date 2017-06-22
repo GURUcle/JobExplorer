@@ -67,12 +67,11 @@ class DeckScreen extends Component {
 
   render() {
     const { navigate, state } = this.props.navigation;
-    const { query } = state.params;
-    console.log('state:', state);
+    //const { query } = state.params;
     return (
       <View style={{ marginTop: 24 }}>
         <View style={{ paddingLeft: 10, paddingRight: 10}}>
-          <Text style={styles.queryTitleStyle}>{`Job Results For ${query}:`}</Text>
+          <Text style={styles.queryTitleStyle}>{`Job Results For :`}</Text>
         </View>
         <Swipe
           data={this.props.jobs}

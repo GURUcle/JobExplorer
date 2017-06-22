@@ -11,7 +11,7 @@ class SettingsScreen extends Component {
     },
     title: 'Review Jobs',
     tabBarIcon: ({ tintColor }) => {
-      return <Icon name='favorite' size={30} color={tintColor} />;
+      return <Icon name='favorite' size={20} color={tintColor} />;
     }
   }
 
